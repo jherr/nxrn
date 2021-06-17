@@ -1,10 +1,107 @@
 {
-  
-  
   "version": 2,
-  
-  "projects": {},
   "cli": {
-    "defaultCollection": "@nrwl/workspace"
+    "defaultCollection": "@nrwl/react-native"
+  },
+  "defaultProject": "rnapp",
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "babel": true
+      }
+    }
+  },
+  "projects": {
+    "rnapp": {
+      "root": "apps/rnapp",
+      "sourceRoot": "apps/rnapp/src",
+      "projectType": "application",
+      "targets": {
+        "start": {
+          "executor": "@nrwl/react-native:start",
+          "options": {
+            "port": 8081
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/workspace:run-commands",
+          "options": {
+            "command": "nx start rnapp"
+          }
+        },
+        "run-ios": {
+          "executor": "@nrwl/react-native:run-ios",
+          "options": {}
+        },
+        "bundle-ios": {
+          "executor": "@nrwl/react-native:bundle",
+          "outputs": ["apps/rnapp/build"],
+          "options": {
+            "entryFile": "apps/rnapp/src/main.tsx",
+            "platform": "ios",
+            "bundleOutput": "dist/apps/rnapp/ios/main.bundle"
+          }
+        },
+        "run-android": {
+          "executor": "@nrwl/react-native:run-android",
+          "options": {}
+        },
+        "build-android": {
+          "executor": "@nrwl/react-native:build-android",
+          "outputs": [
+            "apps/rnapp/android/app/build/outputs/bundle",
+            "apps/rnapp/android/app/build/outputs/apk"
+          ],
+          "options": {}
+        },
+        "bundle-android": {
+          "executor": "@nrwl/react-native:bundle",
+          "options": {
+            "entryFile": "apps/rnapp/src/main.tsx",
+            "platform": "android",
+            "bundleOutput": "dist/apps/rnapp/android/main.bundle"
+          }
+        },
+        "sync-deps": {
+          "executor": "@nrwl/react-native:sync-deps",
+          "options": {}
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/rnapp/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/rnapp"],
+          "options": {
+            "jestConfig": "apps/rnapp/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "ui-heading": {
+      "root": "libs/ui-heading",
+      "sourceRoot": "libs/ui-heading/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ui-heading/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui-heading"],
+          "options": {
+            "jestConfig": "libs/ui-heading/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
   }
 }
